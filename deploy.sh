@@ -50,6 +50,15 @@ backup() {
   if [[ -f CNAME ]]; then
     mv CNAME "$_backup_dir"
   fi
+
+  # Preserve isolated preview sites across normal website deployments.
+  # Preview workflows only write to previews/ and never touch the homepage.
+  if [[ -d previews ]]; then
+    mv previews "$_backup_dir"
+  fi
+  if [[ -f .nojekyll ]]; then
+    mv .nojekyll "$_backup_dir"
+  fi
 }
 
 flush() {
