@@ -16,7 +16,7 @@ on:
   workflow_dispatch:
 
 # Website-only deployment. Push updates on website to build and publish gh-pages.
-# Re-trigger after enabling repository Actions.
+# Trigger deployment after enabling fork workflows in GitHub.
 # Prevent racing pushes from overwriting each other on gh-pages.
 # `cancel-in-progress: false` lets every triggered build complete.
 concurrency:
