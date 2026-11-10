@@ -1,8 +1,8 @@
-name: 'Automatic build'
+name: 'Deploy personal website'
 on:
   push:
     branches:
-      - main
+      - website
     paths-ignore:
       - .gitignore
       - README.md
@@ -14,9 +14,9 @@ on:
       - preview.sh
       - 'themes/**/preview-*.png'
   workflow_dispatch:
-  schedule:
-    - cron: '0 0 * * *'  # Runs daily at midnight (00:00 UTC)
 
+# Website-only deployment. Push updates on website to build and publish gh-pages.
+# This workflow is registered on main but only publishes website.
 # Prevent racing pushes from overwriting each other on gh-pages.
 # `cancel-in-progress: false` lets every triggered build complete.
 concurrency:
@@ -29,13 +29,14 @@ permissions:
 
 jobs:
   continuous-delivery:
+    if: github.ref == 'refs/heads/website'
 
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
