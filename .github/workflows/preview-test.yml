@@ -1,4 +1,5 @@
 name: Preview test website (isolated)
+# Rebuild preview after main mistakenly overwrote gh-pages.
 
 on:
   push:
